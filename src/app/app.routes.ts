@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { GetAPIComponent } from './get-api/get-api.component';
 export const routes: Routes = [
   {
     path: 'profile',
@@ -11,10 +10,6 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: GetAPIComponent,
-  },
-  {
-    path: 'home',
     component: HomeComponent,
   },
   {
