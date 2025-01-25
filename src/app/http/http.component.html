@@ -1,0 +1,78 @@
+<div class="p-6 bg-gray-900 text-white min-h-screen">
+
+  <!-- Create Post -->
+  <form (submit)="createPost()" class="mb-4">
+    <h2 class="text-2xl font-semibold mb-2">Create Post</h2>
+    <input
+      type="text"
+      [(ngModel)]="newPostTitle"
+      name="newPostTitle"
+      placeholder="Enter post title"
+      class="p-2 bg-gray-800 border border-gray-700 rounded-md w-full mb-2 text-white"
+    />
+    <button
+      type="submit"
+      class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded"
+    >
+      Add Post
+    </button>
+  </form>
+
+  <!-- List Posts -->
+  <div class="mb-4">
+    <h2 class="text-2xl font-semibold mb-2">Posts</h2>
+    <button
+      type="button"
+      class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded mb-4"
+      (click)="getAllPosts()"
+    >
+      Load Posts
+    </button>
+
+    <!-- Show when posts array is empty -->
+    <p
+      *ngIf="posts.length === 0"
+      class="text-center text-gray-400 text-lg font-medium"
+    >
+      No posts available.
+    </p>
+
+    <ul *ngIf="posts.length > 0" class="space-y-2">
+      <li
+        *ngFor="let post of posts"
+        class="p-4 bg-gray-800 border border-gray-700 rounded-md flex items-center justify-between"
+      >
+        <div>
+          <p class="text-lg font-semibold">{{ post.title }}</p>
+          <small class="text-gray-400">ID: {{ post.id }}</small>
+        </div>
+
+        <form
+          (submit)="updatePost(post.id, post.newTitle)"
+          class="flex items-center space-x-2"
+        >
+          <input
+            type="text"
+            [(ngModel)]="post.newTitle"
+            name="editPostTitle"
+            placeholder="Edit title"
+            class="p-2 bg-gray-700 border border-gray-600 rounded-md text-white"
+          />
+          <button
+            type="submit"
+            class="bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-1 px-3 rounded"
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            class="bg-red-600 hover:bg-red-500 text-white font-semibold py-1 px-3 rounded"
+            (click)="deletePost(post.id)"
+          >
+            Delete
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>

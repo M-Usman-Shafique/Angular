@@ -1,0 +1,30 @@
+<div
+  class="font-semibold w-full flex items-center justify-center gap-5 bg-white/10 py-3"
+>
+  <a
+    routerLink="/"
+    routerLinkActive="bg-white/10"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
+    >Home</a
+  >
+  <a
+    routerLink="/about"
+    routerLinkActive="bg-white/10"
+    class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
+    >About</a
+  >
+  <a
+    routerLink="/contact"
+    routerLinkActive="bg-white/10"
+    class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
+    >Contact</a
+  >
+  <a
+    [routerLink]="['/profile']"
+    routerLinkActive="bg-white/10"
+    class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
+    >Profile</a
+  >
+</div>
+<router-outlet />
