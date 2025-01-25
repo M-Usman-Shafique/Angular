@@ -1,0 +1,30 @@
+<div class="mb-4">
+    <h2 class="text-2xl font-semibold mb-2">Posts</h2>
+    <button
+      type="button"
+      class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded mb-4"
+      (click)="getAllPosts()"
+    >
+      Load Posts
+    </button>
+
+    <!-- Show when posts array is empty -->
+    <p
+      *ngIf="posts.length === 0"
+      class="text-center text-gray-400 text-lg font-medium"
+    >
+      No posts available.
+    </p>
+
+    <ul *ngIf="posts.length > 0" class="space-y-2">
+      <li
+        *ngFor="let post of posts"
+        class="p-4 bg-gray-800 border border-gray-700 rounded-md flex items-center justify-between"
+      >
+        <div>
+          <p class="text-lg font-semibold">{{ post.title }}</p>
+          <small class="text-gray-400">ID: {{ post.id }}</small>
+        </div>
+      </li>
+    </ul>
+  </div>
