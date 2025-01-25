@@ -41,12 +41,14 @@ export class HttpComponent {
     this.http
       .put(`${this.apiUrl}/${id}`, updatedPost)
       .subscribe((response: any) => {
-        const index = this.posts.findIndex((post) => post.id === id);
-        if (index !== -1) {
-          this.posts[index] = { ...response, newTitle: response.title };
+        const post = this.posts.find((post) => post.id === id);
+        if (post) {
+          post.title = response.title;
+          post.newTitle = response.title;
         }
       });
   }
+  
 
   deletePost(id: string) {
     this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {

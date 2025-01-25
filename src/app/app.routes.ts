@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { HttpComponent } from './http/http.component';
 export const routes: Routes = [
   {
     path: 'profile',
@@ -11,6 +12,10 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'http',
+    component: HttpComponent,
   },
   {
     path: 'about',

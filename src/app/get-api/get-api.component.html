@@ -1,16 +1,7 @@
 <div class="mb-4">
-  <h2 class="text-2xl font-semibold mb-2">Posts</h2>
-  <button
-    type="button"
-    class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-4 rounded mb-4"
-    (click)="getAllPosts()"
-  >
-    Load Posts
-  </button>
-
   <p
     *ngIf="posts.length === 0"
-    class="text-center text-gray-400 text-lg font-medium"
+    class="text-center text-gray-400"
   >
     No posts available.
   </p>
@@ -24,7 +15,18 @@
         <p class="text-lg font-semibold">{{ post.title }}</p>
         <small class="text-gray-400">ID: {{ post.id }}</small>
       </div>
-      <app-delete-api  [post]="post" [apiUrl]="apiUrl" (postDeleted)="removePost($event)" />
+      <div class="flex items-center gap-2">
+        <app-put-api
+          [post]="post"
+          [apiUrl]="apiUrl"
+          (postUpdated)="updatePostInList($event)"
+        />
+        <app-delete-api
+          [post]="post"
+          [apiUrl]="apiUrl"
+          (postDeleted)="removePost($event)"
+        />
+      </div>
     </li>
   </ul>
 </div>
