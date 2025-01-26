@@ -11,14 +11,18 @@ import { DeletePostComponent } from '../delete-post/delete-post.component';
 })
 export class ShowPostsComponent implements OnInit {
   posts: any[] = [];
+  isLoading: boolean = false;
 
   constructor(private postService: PostsService) {}
 
   ngOnInit() {
     this.loadPosts();
   }
-
   loadPosts() {
-    this.postService.getAllPosts().subscribe((data) => (this.posts = data));
+    this.isLoading = true;
+    this.postService.getAllPosts().subscribe((data) => {
+      this.posts = data;
+      this.isLoading = false;
+    });
   }
 }

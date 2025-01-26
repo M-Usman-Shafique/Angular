@@ -6,6 +6,4 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  user = { name: 'Ali', age: 30, city: '' };
-}
+export class AppComponent {}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class PostsService {
   private apiUrl = 'https://67948e5baad755a134e9c6fe.mockapi.io/api/posts';
 
+  // http = inject(HttpClient);
   constructor(private http: HttpClient) {}
 
   getAllPosts(): Observable<any[]> {

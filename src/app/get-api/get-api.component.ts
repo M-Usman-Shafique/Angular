@@ -12,6 +12,8 @@ import { PutAPIComponent } from '../put-api/put-api.component';
 export class GetAPIComponent {
   @Input() posts: any[] = [];
   @Input() apiUrl: string = '';
+  isLoading: boolean = false;
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -19,11 +21,13 @@ export class GetAPIComponent {
   }
 
   getAllPosts() {
+    this.isLoading = true;
     this.http.get(this.apiUrl).subscribe((response: any) => {
       this.posts = response.map((post: any) => ({
         ...post,
         newTitle: post.title,
       }));
+      this.isLoading = false;
     });
   }
 

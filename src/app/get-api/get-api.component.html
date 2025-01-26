@@ -1,6 +1,11 @@
 <div class="mb-4">
+  <ng-container *ngIf="isLoading">
+    <div class="min-h-[calc(100vh-30vh)] flex items-center justify-center">
+      <h1 class="text-xl text-gray-300">Loading...</h1>
+    </div>
+  </ng-container>
   <p
-    *ngIf="posts.length === 0"
+    *ngIf="!isLoading && posts.length === 0"
     class="text-center text-gray-400"
   >
     No posts available.

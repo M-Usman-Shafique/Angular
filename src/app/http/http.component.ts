@@ -14,6 +14,8 @@ export class HttpComponent {
   posts: any[] = [];
   apiUrl = 'https://67948e5baad755a134e9c6fe.mockapi.io/api/posts';
   newPostTitle: string = '';
+  isLoading: boolean = false;
+
 
   constructor(private http: HttpClient) {}
 
@@ -22,11 +24,13 @@ export class HttpComponent {
   }
 
   getAllPosts() {
+    this.isLoading = true;
     this.http.get(this.apiUrl).subscribe((response: any) => {
       this.posts = response.map((post: any) => ({
         ...post,
         newTitle: post.title,
       }));
+      this.isLoading = false;
     });
   }
 
