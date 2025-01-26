@@ -1,0 +1,29 @@
+<div class="mb-4">
+  <ul *ngIf="posts.length > 0" class="space-y-2">
+    <li
+      *ngFor="let post of posts"
+      class="p-4 bg-white/10 border border-white/15 rounded-md flex items-center justify-between"
+    >
+      <div>
+        <p class="text-lg font-semibold">{{ post.title }}</p>
+        <small class="text-gray-400">ID: {{ post.id }}</small>
+      </div>
+      <div class="flex items-center space-x-2">
+        <app-update-post
+          [post]="post"
+          (updated)="loadPosts()"
+        ></app-update-post>
+        <app-delete-post
+          [id]="post.id"
+          (deleted)="loadPosts()"
+        ></app-delete-post>
+      </div>
+    </li>
+  </ul>
+  <p
+    *ngIf="posts.length === 0"
+    class="text-center text-gray-400 text-lg font-medium"
+  >
+    No posts available.
+  </p>
+</div>

@@ -3,14 +3,14 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { HttpComponent } from './http/http.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
 export const routes: Routes = [
   {
-    path: 'profile',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    path: '',
+    component: WrapperComponent,
   },
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {
@@ -25,6 +25,11 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () =>
       import('./contact/contact.component').then((c) => c.ContactComponent),
+  },
+  {
+    path: 'profile',
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
     path: '**',

@@ -1,13 +1,8 @@
-<form
-  (submit)="updatePost(post.id, post.newTitle)"
-  class="flex items-center space-x-2"
->
+<form (submit)="updatePost()" class="flex items-center space-x-2">
   <input
-    type="text"
     [(ngModel)]="post.newTitle"
     name="editPostTitle"
-    placeholder="Edit title"
-    class="p-2 bg-white/10 border border-white/10 outline-0 rounded-md text-white"
+    class="p-2 bg-white/10 border border-white/15 rounded-md text-white"
   />
   <button
     type="submit"

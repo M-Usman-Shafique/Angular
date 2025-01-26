@@ -17,6 +17,10 @@ export class HttpComponent {
 
   constructor(private http: HttpClient) {}
 
+  ngOnInit(): void {
+    this.getAllPosts();
+  }
+
   getAllPosts() {
     this.http.get(this.apiUrl).subscribe((response: any) => {
       this.posts = response.map((post: any) => ({

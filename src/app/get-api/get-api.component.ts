@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DeleteAPIComponent } from '../delete-api/delete-api.component';
 import { PutAPIComponent } from '../put-api/put-api.component';
 
@@ -9,7 +9,7 @@ import { PutAPIComponent } from '../put-api/put-api.component';
   imports: [NgIf, NgFor, DeleteAPIComponent, PutAPIComponent],
   templateUrl: './get-api.component.html',
 })
-export class GetAPIComponent implements OnInit {
+export class GetAPIComponent {
   @Input() posts: any[] = [];
   @Input() apiUrl: string = '';
   constructor(private http: HttpClient) {}
