@@ -1,21 +1,13 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { HttpComponent } from './http/http.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
+import { ProfileComponent } from './profile/profile.component';
+import { authGuard } from './auth-guard.guard';
 export const routes: Routes = [
   {
     path: '',
     component: WrapperComponent,
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'http',
-    component: HttpComponent,
   },
   {
     path: 'about',
@@ -28,8 +20,8 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    component: ProfileComponent,
+    canActivate: [authGuard],
   },
   {
     path: '**',
