@@ -10,14 +10,19 @@ import { PostsService } from '../services/posts.service';
 export class CreatePostComponent {
   @Output() postCreated = new EventEmitter<any>();
   newPostTitle = '';
+  newPostImage = '';
 
   constructor(private postService: PostsService) {}
 
   createPost() {
-    if (!this.newPostTitle.trim()) return;
-    this.postService.createPost({ title: this.newPostTitle }).subscribe((newPost) => {
-      this.postCreated.emit(newPost);
-      this.newPostTitle = '';
-    });
+    if (!this.newPostTitle.trim() && !this.newPostImage.trim()) return;
+
+    this.postService
+      .createPost({ title: this.newPostTitle, image: this.newPostImage })
+      .subscribe((newPost) => {
+        this.postCreated.emit(newPost);
+        this.newPostTitle = '';
+        this.newPostImage = '';
+      });
   }
 }

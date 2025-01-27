@@ -15,11 +15,10 @@ export class PostsService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  createPost(post: { title: string }): Observable<any> {
+  createPost(post: { title: string; image: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl, post);
   }
-
-  updatePost(id: string, post: { title: string }): Observable<any> {
+  updatePost(id: string, post: { title: string; image: string }): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, post);
   }
 

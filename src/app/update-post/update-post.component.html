@@ -1,13 +1,29 @@
-<form (submit)="updatePost()" class="flex items-center space-x-2">
-  <input
-    [(ngModel)]="post.newTitle"
-    name="editPostTitle"
-    class="p-2 bg-white/10 border border-white/15 rounded-md text-white"
-  />
+<ng-container *ngIf="isEditing; else viewMode">
+  <form (submit)="updatePost()" class="flex items-center space-x-2">
+    <input
+      [(ngModel)]="post.newTitle"
+      name="editPostTitle"
+      class="p-2 bg-white/10 border border-white/15 rounded-md text-white"
+    />
+    <input
+      [(ngModel)]="post.newImage"
+      name="editPostImage"
+      placeholder="Update image URL"
+      class="p-2 bg-white/10 border border-white/15 rounded-md text-white"
+    />
+    <button
+      type="submit"
+      class="bg-yellow-500 hover:bg-yellow-400 text-white font-semibold py-2 px-3 rounded cursor-pointer"
+    >
+      Update
+    </button>
+  </form>
+</ng-container>
+<ng-template #viewMode>
   <button
-    type="submit"
-    class="bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-2 px-3 rounded cursor-pointer"
+    (click)="toggleEdit()"
+    class="bg-white/5 hover:bg-white/10 p-2 rounded-full cursor-pointer"
   >
-    Update
+    ✏️
   </button>
-</form>
+</ng-template>

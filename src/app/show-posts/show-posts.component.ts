@@ -36,4 +36,15 @@ export class ShowPostsComponent implements OnInit {
   onPostCreated(newPost: any) {
     this.posts.unshift(newPost);
   }
+
+  onPostDeleted(deletedId: string) {
+    this.posts = this.posts.filter((post) => post.id !== deletedId);
+  }
+
+  onPostUpdated(updatedPost: any) {
+    const index = this.posts.findIndex((post) => post.id === updatedPost.id);
+    if (index !== -1) {
+      this.posts[index] = updatedPost;
+    }
+  }
 }
