@@ -3,7 +3,7 @@ import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { ProfileComponent } from './profile/profile.component';
-import { authGuard } from './auth-guard.guard';
+import { authGuard } from './auth.guard';
 export const routes: Routes = [
   {
     path: '',
