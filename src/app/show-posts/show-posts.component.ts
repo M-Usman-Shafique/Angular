@@ -4,6 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { UpdatePostComponent } from '../update-post/update-post.component';
 import { DeletePostComponent } from '../delete-post/delete-post.component';
 import { CreatePostComponent } from '../create-post/create-post.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-show-posts',
@@ -20,9 +21,15 @@ export class ShowPostsComponent implements OnInit {
   posts: any[] = [];
   isLoading: boolean = false;
 
-  constructor(private postService: PostsService) {}
+  user: any;
+
+  constructor(
+    private postService: PostsService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    this.user = this.userService.getUser();
     this.loadPosts();
   }
   loadPosts() {

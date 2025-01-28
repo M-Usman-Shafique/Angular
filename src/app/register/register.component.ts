@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
@@ -15,6 +16,7 @@ export class RegisterComponent {
     password: '',
   };
 
+  userService = inject(UserService);
   http = inject(HttpClient);
   router = inject(Router);
 
@@ -24,7 +26,7 @@ export class RegisterComponent {
       .subscribe({
         next: (res) => {
           console.log('Registration successful!');
-          localStorage.setItem('loginUser', JSON.stringify(res));
+          this.userService.setUser(res);
           this.router.navigate(['/login']);
         },
         error: (err) => {

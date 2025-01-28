@@ -1,7 +1,7 @@
 <app-create-post (postCreated)="onPostCreated($event)"></app-create-post>
 <div class="mb-4">
   <ng-container *ngIf="isLoading">
-    <div class="min-h-[calc(100vh-30vh)] flex items-center justify-center">
+    <div class="min-h-[calc(100vh-40vh)] flex items-center justify-center">
       <h1 class="text-xl text-gray-300">Loading...</h1>
     </div>
   </ng-container>
@@ -17,7 +17,10 @@
           <small class="text-gray-400">ID: {{ post.id }}</small>
         </div>
       </div>
-      <div class="flex items-center space-x-2">
+      <div
+        *ngIf="post.userId === user?.id"
+        class="action-div flex items-center space-x-2"
+      >
         <app-update-post
           [post]="post"
           (updated)="onPostUpdated($event)"
@@ -29,10 +32,9 @@
       </div>
     </li>
   </ul>
-  <p
-    *ngIf="!isLoading && posts.length === 0"
-    class="text-center text-gray-400 text-lg font-medium"
-  >
-    No posts available.
-  </p>
+  <ng-container *ngIf="!isLoading && posts.length === 0">
+    <div class="min-h-[calc(100vh-40vh)] flex items-center justify-center">
+      <h1 class="text-lg text-gray-400">No posts available.</h1>
+    </div>
+  </ng-container>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent {
     password: '',
   };
 
+  userService = inject(UserService);
   router = inject(Router);
   http = inject(HttpClient);
 
@@ -29,7 +31,7 @@ export class LoginComponent {
 
         if (foundUser) {
           console.log('Login successful...');
-          localStorage.setItem('loginUser', JSON.stringify(foundUser));
+          this.userService.setUser(foundUser);
           this.router.navigateByUrl('');
         } else {
           alert('Invalid email or password.');
