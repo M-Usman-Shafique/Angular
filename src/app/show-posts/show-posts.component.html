@@ -24,8 +24,10 @@
         <app-update-post
           [post]="post"
           (updated)="onPostUpdated($event)"
+          (editingState)="onEditingState(post.id, $event)"
         ></app-update-post>
         <app-delete-post
+          *ngIf="!isEditingMap[post.id]"
           [id]="post.id"
           (deleted)="onPostDeleted($event)"
         ></app-delete-post>

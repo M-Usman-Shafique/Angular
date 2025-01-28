@@ -20,7 +20,7 @@ import { UserService } from '../services/user.service';
 export class ShowPostsComponent implements OnInit {
   posts: any[] = [];
   isLoading: boolean = false;
-
+  isEditingMap: { [postId: string]: boolean } = {};
   user: any;
 
   constructor(
@@ -53,5 +53,9 @@ export class ShowPostsComponent implements OnInit {
     if (index !== -1) {
       this.posts[index] = updatedPost;
     }
+  }
+
+  onEditingState(postId: string, isEditing: boolean) {
+    this.isEditingMap[postId] = isEditing;
   }
 }

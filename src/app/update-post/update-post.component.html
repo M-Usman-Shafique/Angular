@@ -17,13 +17,20 @@
     >
       Update
     </button>
+    <button
+      type="button"
+      (click)="toggleEdit()"
+      class="bg-gray-300 text-black font-semibold py-2 px-3 rounded cursor-pointer"
+    >
+      Close
+    </button>
   </form>
 </ng-container>
 <ng-template #viewMode>
   <button
     (click)="toggleEdit()"
-    class="bg-white/5 hover:bg-white/10 p-2 rounded-full cursor-pointer"
+    class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-3 rounded cursor-pointer"
   >
-    ✏️
+    Edit
   </button>
 </ng-template>

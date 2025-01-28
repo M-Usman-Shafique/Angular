@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
 export class UpdatePostComponent {
   @Input() post: any;
   @Output() updated = new EventEmitter<void>();
+  @Output() editingState = new EventEmitter<boolean>();
   isEditing = false;
 
   constructor(private postService: PostsService) {}
@@ -24,6 +25,7 @@ export class UpdatePostComponent {
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
+    this.editingState.emit(this.isEditing);
   }
 
   updatePost() {
@@ -37,6 +39,7 @@ export class UpdatePostComponent {
       .subscribe((updatedPost) => {
         this.updated.emit(updatedPost);
         this.isEditing = false;
+        this.editingState.emit(this.isEditing);
       });
   }
 }
