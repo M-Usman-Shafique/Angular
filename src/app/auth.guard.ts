@@ -6,14 +6,26 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 
-let session = false;
 export const authGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
   const router: Router = inject(Router);
-  const protectedRoutes: string[] = ['/profile'];
-  return protectedRoutes.includes(state.url) && !session
-    ? router.navigate(['/'])
-    : true;
+
+  // Check if user is logged in
+  const isLoggedIn = !!localStorage.getItem('loginUser');
+
+  // Protect routes that require authentication
+  if (!isLoggedIn && ['/profile', '/'].includes(state.url)) {
+    router.navigate(['/login']); // Redirect to login if not logged in
+    return false;
+  }
+
+  // Prevent logged-in users from accessing the login page
+  if (isLoggedIn && state.url === '/login') {
+    router.navigate(['/']); // Redirect to root
+    return false;
+  }
+
+  return true; // Allow navigation
 };

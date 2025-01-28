@@ -1,13 +1,32 @@
 import { Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { WrapperComponent } from './wrapper/wrapper.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authGuard } from './auth.guard';
+import { LoginComponent } from './login/login.component';
+import { PostsComponent } from './posts/posts.component';
+import { RegisterComponent } from './register/register.component';
+
 export const routes: Routes = [
   {
     path: '',
-    component: WrapperComponent,
+    component: PostsComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'about',
@@ -17,11 +36,6 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () =>
       import('./contact/contact.component').then((c) => c.ContactComponent),
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [authGuard],
   },
   {
     path: '**',
