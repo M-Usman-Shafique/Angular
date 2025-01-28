@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PostsService } from '../services/posts.service';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-delete-post',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './delete-post.component.html',
 })
 export class DeletePostComponent {

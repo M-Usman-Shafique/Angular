@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostsService } from '../services/posts.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -8,7 +8,7 @@ import { NgIf } from '@angular/common';
   imports: [FormsModule, NgIf],
   templateUrl: './update-post.component.html',
 })
-export class UpdatePostComponent {
+export class UpdatePostComponent implements OnInit {
   @Input() post: any;
   @Output() updated = new EventEmitter<void>();
   @Output() editingState = new EventEmitter<boolean>();
