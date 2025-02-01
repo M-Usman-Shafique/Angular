@@ -1,14 +1,19 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BadgeService {
-  isVisible = signal<boolean>(false);
+  private isVisible$ = new BehaviorSubject<boolean>(false);
 
   constructor() {}
 
+  getVisibilityObservable() {
+    return this.isVisible$.asObservable();
+  }
+
   toggleVisibility() {
-    this.isVisible.set(!this.isVisible());
+    this.isVisible$.next(!this.isVisible$.value);
   }
 }

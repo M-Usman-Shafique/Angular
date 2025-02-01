@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { BadgeService } from '../services/badge.service';
 
 @Component({
@@ -7,8 +7,14 @@ import { BadgeService } from '../services/badge.service';
   templateUrl: './exclusive.component.html',
 })
 export class ExclusiveComponent {
-  isVisible = computed(() => this.badgeService.isVisible());
+  isVisible: boolean = false;
   constructor(private badgeService: BadgeService) {}
+
+  ngOnInit() {
+    this.badgeService.getVisibilityObservable().subscribe((state) => {
+      this.isVisible = state;
+    });
+  }
   goVisible() {
     this.badgeService.toggleVisibility();
   }
