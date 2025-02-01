@@ -6,8 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserService {
   private currentUser: any = null;
-  private userSubject = new BehaviorSubject<any>(null);
-
+  private user$ = new BehaviorSubject<any>(null);
   constructor() {
     this.getCurrentUser();
   }
@@ -16,7 +15,7 @@ export class UserService {
     const storedUser = localStorage.getItem('loginUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
-      this.userSubject.next(this.currentUser);
+      this.user$.next(this.currentUser);
     }
   }
 
@@ -25,18 +24,18 @@ export class UserService {
   }
 
   getUserObservable() {
-    return this.userSubject.asObservable();
+    return this.user$.asObservable();
   }
 
   setUser(user: any): void {
     this.currentUser = user;
     localStorage.setItem('loginUser', JSON.stringify(user));
-    this.userSubject.next(user);
+    this.user$.next(user);
   }
 
   logout(): void {
     this.currentUser = null;
     localStorage.removeItem('loginUser');
-    this.userSubject.next(null);
+    this.user$.next(null);
   }
 }

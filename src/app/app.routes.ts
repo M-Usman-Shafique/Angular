@@ -6,6 +6,7 @@ import { authGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
 import { PostsComponent } from './posts/posts.component';
 import { RegisterComponent } from './register/register.component';
+import { ExclusiveComponent } from './exclusive/exclusive.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () =>
       import('./contact/contact.component').then((c) => c.ContactComponent),
+  },
+  {
+    path: 'exclusive',
+    component: ExclusiveComponent,
   },
   {
     path: '**',

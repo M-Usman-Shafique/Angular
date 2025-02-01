@@ -21,11 +21,18 @@
     >Contact</a
   >
   <a
+  routerLink="/exclusive"
+  routerLinkActive="bg-white/10"
+  class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
+  >Exclusive</a
+>
+  <a
     *ngIf="user"
     [routerLink]="['/profile', user.id]"
     routerLinkActive="bg-white/10"
     class="px-2 py-1 text-gray-200 hover:bg-white/10 rounded-md transition"
     >Profile</a
   >
+  <app-badge />
 </div>
 <router-outlet />
