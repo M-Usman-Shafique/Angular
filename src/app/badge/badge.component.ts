@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { BadgeService } from '../services/badge.service';
 
@@ -8,12 +8,6 @@ import { BadgeService } from '../services/badge.service';
   templateUrl: './badge.component.html',
 })
 export class BadgeComponent {
-  isVisible: boolean = false;
+  isVisible = computed(() => this.badgeService.isVisible());
   constructor(private badgeService: BadgeService) {}
-
-  ngOnInit() {
-    this.badgeService.getVisibilityObservable().subscribe((state) => {
-      this.isVisible = state;
-    });
-  }
 }
