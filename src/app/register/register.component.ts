@@ -1,6 +1,5 @@
 import { UserService } from './../services/user.service';
 import { Component, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -17,12 +16,10 @@ export class RegisterComponent {
   };
 
   userService = inject(UserService);
-  http = inject(HttpClient);
   router = inject(Router);
 
   onRegister() {
-    this.http
-      .post('https://67948e5baad755a134e9c6fe.mockapi.io/api/users', this.user)
+    this.userService.register(this.user)
       .subscribe({
         next: (res) => {
           console.log('Registration successful!');

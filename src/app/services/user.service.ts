@@ -1,13 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private apiUrl = 'https://67948e5baad755a134e9c6fe.mockapi.io/api/users';
   private currentUser: any = null;
   private user$ = new BehaviorSubject<any>(null);
-  constructor() {
+  constructor(private http: HttpClient) {
     this.getCurrentUser();
   }
 
@@ -37,5 +39,23 @@ export class UserService {
     this.currentUser = null;
     localStorage.removeItem('loginUser');
     this.user$.next(null);
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      catchError((error) => {
+        console.error('Login error:', error);
+        throw new Error('An error occurred while trying to log in.');
+      })
+    );
+  }
+
+  register(user: any): Observable<any> {
+    return this.http.post(this.apiUrl, user).pipe(
+      catchError((error) => {
+        console.error('Registration error:', error);
+        throw new Error('Registration failed. Please try again.');
+      })
+    );
   }
 }

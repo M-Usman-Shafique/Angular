@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -10,22 +9,15 @@ import { UserService } from '../services/user.service';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  user: any = {
-    email: '',
-    password: '',
-  };
+  user: any = { email: '', password: '' };
 
   userService = inject(UserService);
   router = inject(Router);
-  http = inject(HttpClient);
-
-  private apiUrl = 'https://67948e5baad755a134e9c6fe.mockapi.io/api/users';
-
   onLogin() {
-    this.http.get<any[]>(this.apiUrl).subscribe(
-      (users) => {
+    this.userService.login(this.user.email, this.user.password).subscribe({
+      next: (users) => {
         const foundUser = users.find(
-          (u) =>
+          (u: any) =>
             u.email === this.user.email && u.password === this.user.password
         );
 
@@ -37,10 +29,10 @@ export class LoginComponent {
           alert('Invalid email or password.');
         }
       },
-      (error) => {
+      error: (error) => {
         alert('An error occurred while trying to log in. Please try again.');
         console.error(error);
-      }
-    );
+      },
+    });
   }
 }
