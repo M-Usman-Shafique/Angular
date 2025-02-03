@@ -1,14 +1,14 @@
-import { UserService } from './../services/user.service';
+import { UserService } from '../services/user.service';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-signup',
   imports: [FormsModule, RouterLink],
-  templateUrl: './register.component.html',
+  templateUrl: './signup.component.html',
 })
-export class RegisterComponent {
+export class SignupComponent {
   user: any = {
     username: '',
     email: '',
@@ -18,8 +18,8 @@ export class RegisterComponent {
   userService = inject(UserService);
   router = inject(Router);
 
-  onRegister() {
-    this.userService.register(this.user)
+  onSignup() {
+    this.userService.signup(this.user)
       .subscribe({
         next: (res) => {
           console.log('Registration successful!');

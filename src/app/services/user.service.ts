@@ -35,10 +35,13 @@ export class UserService {
     this.user$.next(user);
   }
 
-  logout(): void {
-    this.currentUser = null;
-    localStorage.removeItem('loginUser');
-    this.user$.next(null);
+  signup(user: any): Observable<any> {
+    return this.http.post(this.apiUrl, user).pipe(
+      catchError((error) => {
+        console.error('Registration error:', error);
+        throw new Error('Registration failed. Please try again.');
+      })
+    );
   }
 
   login(email: string, password: string): Observable<any> {
@@ -56,13 +59,10 @@ export class UserService {
       })
     );
   }
-  
-  register(user: any): Observable<any> {
-    return this.http.post(this.apiUrl, user).pipe(
-      catchError((error) => {
-        console.error('Registration error:', error);
-        throw new Error('Registration failed. Please try again.');
-      })
-    );
+
+  logout(): void {
+    this.currentUser = null;
+    localStorage.removeItem('loginUser');
+    this.user$.next(null);
   }
 }
