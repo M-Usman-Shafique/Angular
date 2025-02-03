@@ -1,20 +1,51 @@
 <div
-  class="min-h-[calc(100vh-20vh)] flex flex-col items-center justify-center gap-5"
+  class="min-h-[calc(100vh-20vh)] flex flex-col items-center justify-center gap-5 pt-10"
 >
   <div
     *ngIf="user"
     class="user-card w-full max-w-sm flex flex-col items-center justify-center bg-white/5 border-2 border-white/5 p-6 rounded-2xl shadow-lg gap-4"
   >
-    <div
-      class="p-4 size-18 rounded-full bg-yellow-300 text-neutral-700 flex items-center justify-center text-4xl font-medium"
-    >
-      {{ user.username[0].toUpperCase() }}
+    <div class="flex items-center gap-2">
+      <div
+        class="p-4 size-18 rounded-full bg-yellow-300 text-neutral-700 flex items-center justify-center text-4xl font-medium"
+      >
+        {{ user.username[0].toUpperCase() }}
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-100">
+          {{ user.username }}
+        </h2>
+        <p class="text-gray-300">{{ user.email }}</p>
+      </div>
     </div>
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold text-gray-100">
-        {{ user.username }}
-      </h2>
-      <p class="text-gray-300">{{ user.email }}</p>
+    <div class="mt-2 flex items-center justify-center w-full">
+      <ng-container *ngIf="isLoading">
+        <div class="w-full flex items-center justify-center">
+          <h1 class="text-xl text-gray-300">Loading...</h1>
+        </div>
+      </ng-container>
+      <ul *ngIf="posts.length > 0" class="flex items-center gap-3">
+        <li
+          *ngFor="let post of posts"
+          class="p-3 bg-white/10 border border-white/15 rounded-md"
+        >
+          <div class="flex flex-col gap-1">
+            <img
+              [src]="post.image"
+              alt="Post Image"
+              class="size-24 rounded-md"
+            />
+            <div>
+              <p class="font-medium">{{ post.title }}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ng-container *ngIf="!isLoading && posts.length === 0">
+        <div class="flex items-center justify-center">
+          <h1 class="text-lg text-gray-400">No posts available.</h1>
+        </div>
+      </ng-container>
     </div>
     <div class="flex items-center gap-2 w-full mt-2">
       <button
@@ -30,30 +61,5 @@
         Logout
       </button>
     </div>
-  </div>
-  <div class="mt-2 flex items-center justify-center w-full">
-    <ng-container *ngIf="isLoading">
-      <div class="w-full flex items-center justify-center">
-        <h1 class="text-xl text-gray-300">Loading...</h1>
-      </div>
-    </ng-container>
-    <ul *ngIf="posts.length > 0" class="flex items-center gap-3">
-      <li
-        *ngFor="let post of posts"
-        class="p-3 bg-white/10 border border-white/15 rounded-md"
-      >
-        <div class="flex flex-col gap-1">
-          <img [src]="post.image" alt="Post Image" class="size-24 rounded-md" />
-          <div>
-            <p class="font-medium">{{ post.title }}</p>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <ng-container *ngIf="!isLoading && posts.length === 0">
-      <div class="flex items-center justify-center">
-        <h1 class="text-lg text-gray-400">No posts available.</h1>
-      </div>
-    </ng-container>
   </div>
 </div>
