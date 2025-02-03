@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://67948e5baad755a134e9c6fe.mockapi.io/api/users';
+  private apiUrl = 'http://localhost:3000/user';
   private currentUser: any = null;
   private user$ = new BehaviorSubject<any>(null);
   constructor(private http: HttpClient) {
@@ -30,39 +30,55 @@ export class UserService {
   }
 
   setUser(user: any): void {
-    this.currentUser = user;
-    localStorage.setItem('loginUser', JSON.stringify(user));
-    this.user$.next(user);
+    const userData = {
+      userId: user.id,
+      username: user.username,
+      email: user.email,
+    };
+
+    this.currentUser = userData;
+    localStorage.setItem('loginUser', JSON.stringify(userData));
+    this.user$.next(userData);
   }
 
   signup(user: any): Observable<any> {
-    return this.http.post(this.apiUrl, user).pipe(
-      catchError((error) => {
-        console.error('Registration error:', error);
-        throw new Error('Registration failed. Please try again.');
-      })
-    );
+    return this.http
+      .post(`${this.apiUrl}`, user, { withCredentials: true })
+      .pipe(
+        catchError((error) => {
+          console.error('Registration error:', error);
+          throw new Error('Registration failed. Please try again.');
+        })
+      );
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      map((users) => {
-        const foundUser = users.find((u) => u.email === email && u.password === password);
-        if (!foundUser) {
-          throw new Error('Invalid email or password.');
-        }
-        return foundUser;
-      }),
-      catchError((error) => {
-        console.error('Login error:', error);
-        throw new Error('An error occurred while trying to log in.');
-      })
-    );
+    return this.http
+      .post<any>(
+        `${this.apiUrl}/login`,
+        { email, password },
+        { withCredentials: true }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Login error:', error);
+          throw new Error('An error occurred while trying to log in.');
+        })
+      );
   }
 
-  logout(): void {
+  logout(): Observable<any> {
     this.currentUser = null;
     localStorage.removeItem('loginUser');
     this.user$.next(null);
+
+    return this.http
+      .post<any>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
+      .pipe(
+        catchError((error) => {
+          console.error('Logout error:', error);
+          throw new Error('An error occurred while logging out.');
+        })
+      );
   }
 }

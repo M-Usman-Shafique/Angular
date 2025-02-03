@@ -8,7 +8,6 @@ import { UserService } from '../services/user.service';
   selector: 'app-profile',
   imports: [NgIf, NgFor, RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
   user: any;
@@ -45,7 +44,14 @@ export class ProfileComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout();
-    this.router.navigate(['/login']);
+    this.userService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Logout failed:', error);
+      },
+    });
   }
+  
 }
