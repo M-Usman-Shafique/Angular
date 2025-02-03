@@ -15,24 +15,15 @@ export class LoginComponent {
   router = inject(Router);
   onLogin() {
     this.userService.login(this.user.email, this.user.password).subscribe({
-      next: (users) => {
-        const foundUser = users.find(
-          (u: any) =>
-            u.email === this.user.email && u.password === this.user.password
-        );
-
-        if (foundUser) {
-          console.log('Login successful...');
-          this.userService.setUser(foundUser);
-          this.router.navigateByUrl('');
-        } else {
-          alert('Invalid email or password.');
-        }
+      next: (foundUser) => {
+        console.log('Login successful...');
+        this.userService.setUser(foundUser);
+        this.router.navigateByUrl('');
       },
       error: (error) => {
-        alert('An error occurred while trying to log in. Please try again.');
-        console.error(error);
+        alert(error.message);
       },
     });
   }
+  
 }

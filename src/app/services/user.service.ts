@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -43,13 +43,20 @@ export class UserService {
 
   login(email: string, password: string): Observable<any> {
     return this.http.get<any[]>(this.apiUrl).pipe(
+      map((users) => {
+        const foundUser = users.find((u) => u.email === email && u.password === password);
+        if (!foundUser) {
+          throw new Error('Invalid email or password.');
+        }
+        return foundUser;
+      }),
       catchError((error) => {
         console.error('Login error:', error);
         throw new Error('An error occurred while trying to log in.');
       })
     );
   }
-
+  
   register(user: any): Observable<any> {
     return this.http.post(this.apiUrl, user).pipe(
       catchError((error) => {
