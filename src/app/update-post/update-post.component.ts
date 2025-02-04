@@ -29,7 +29,7 @@ export class UpdatePostComponent implements OnInit {
   }
 
   updatePost() {
-    if (!this.post.newTitle.trim() || !this.post.newImage.trim()) return;
+    if (!this.post.newTitle.trim() && !this.post.newImage.trim()) return;
 
     this.postService
       .updatePost(this.post.id, {
