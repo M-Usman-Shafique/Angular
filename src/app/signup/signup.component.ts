@@ -27,8 +27,8 @@ export class SignupComponent {
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          alert('Registration failed. Please try again.');
           console.error(err);
+          alert('Signup failed. Please try again.');
         },
       });
   }

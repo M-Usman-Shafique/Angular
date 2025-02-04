@@ -16,12 +16,13 @@ export class LoginComponent {
   onLogin() {
     this.userService.login(this.user.email, this.user.password).subscribe({
       next: (foundUser) => {
-        console.log('Login successful...');
         this.userService.setUser(foundUser);
+        console.log('Login successful...');
         this.router.navigateByUrl('');
       },
       error: (error) => {
-        alert(error.message);
+        console.error(error.message);
+        alert('Login failed. Please try again!');
       },
     });
   }

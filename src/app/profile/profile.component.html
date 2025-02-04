@@ -42,21 +42,21 @@
         </li>
       </ul>
       <ng-container *ngIf="!isLoading && posts.length === 0">
-        <div class="flex items-center justify-center">
-          <h1 class="text-lg text-gray-400">No posts available.</h1>
+        <div class="flex items-center justify-center min-h-[20vh]">
+          <h1 class=" text-gray-400">No posts available.</h1>
         </div>
       </ng-container>
     </div>
     <div class="flex items-center gap-2 w-full mt-2">
       <button
-        routerLink="/"
-        class="flex-1 px-4 py-2 bg-gray-200 text-black font-semibold rounded-md hover:bg-gray-300 transition cursor-pointer"
+        (click)="deleteAccount(user.id)"
+        class="flex-1 px-4 py-2 bg-neutral-700 hover:bg-neutral-800 hover:text-red-600 ring ring-white/20 font-medium rounded-md transition cursor-pointer"
       >
-        Back to Home
+        Delete Account
       </button>
       <button
         (click)="logout()"
-        class="flex-1 px-4 py-2 bg-red-500/50 text-white font-medium rounded-md hover:bg-red-600 transition cursor-pointer"
+        class="flex-1 px-4 py-2 bg-red-700 text-white font-medium rounded-md hover:bg-red-600 transition cursor-pointer"
       >
         Logout
       </button>

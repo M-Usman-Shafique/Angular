@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class UserService {
 
   setUser(user: any): void {
     const userData = {
-      userId: user.id,
+      id: user.id,
       username: user.username,
       email: user.email,
     };
@@ -39,6 +39,12 @@ export class UserService {
     this.currentUser = userData;
     localStorage.setItem('loginUser', JSON.stringify(userData));
     this.user$.next(userData);
+  }
+
+  clearUserData(): void {
+    this.currentUser = null;
+    localStorage.removeItem('loginUser');
+    this.user$.next(null);
   }
 
   signup(user: any): Observable<any> {
@@ -68,16 +74,25 @@ export class UserService {
   }
 
   logout(): Observable<any> {
-    this.currentUser = null;
-    localStorage.removeItem('loginUser');
-    this.user$.next(null);
-
     return this.http
       .post<any>(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .pipe(
+        tap(() => this.clearUserData()),
         catchError((error) => {
           console.error('Logout error:', error);
           throw new Error('An error occurred while logging out.');
+        })
+      );
+  }
+
+  deleteUser(id: any): Observable<any> {
+    return this.http
+      .delete(`${this.apiUrl}/${id}`, { withCredentials: true })
+      .pipe(
+        tap(() => this.clearUserData()),
+        catchError((error) => {
+          console.error('Delete user error:', error);
+          throw new Error('An error occurred while deleting user.');
         })
       );
   }

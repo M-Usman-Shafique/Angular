@@ -1,12 +1,12 @@
 import { NgIf, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { PostsService } from '../services/posts.service';
 import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [NgIf, NgFor],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
@@ -53,5 +53,16 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
-  
+
+  deleteAccount(id: any) {
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
+        alert('Account deleted successfully.');
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Failed to delete user:', error);
+      },
+    });
+  }
 }
