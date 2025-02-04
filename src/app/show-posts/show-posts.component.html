@@ -18,7 +18,11 @@
           class="w-16 h-16 rounded-md"
         />
         <div>
-          <p class="text-lg font-semibold">{{ post.title }}</p>
+          <div class="space-x-2">
+            <span class="text-lg font-semibold">{{ post.user.username }}</span>
+            <span class="text-gray-400">{{ post.user.email }}</span>
+          </div>
+          <p class="font-medium text-gray-300">{{ post.title }}</p>
         </div>
       </div>
       <div
