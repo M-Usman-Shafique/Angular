@@ -25,19 +25,24 @@ export class CreatePostComponent {
     const userId = user?.id;
 
     if (!userId) {
+      alert('Login to create a post.');
       return;
     }
 
     const postData = {
       title: this.newPostTitle,
       image: this.newPostImage,
-      userId,
     };
 
-    this.postService.createPost(postData).subscribe((newPost) => {
-      this.postCreated.emit(newPost);
-      this.newPostTitle = '';
-      this.newPostImage = '';
+    this.postService.createPost(postData).subscribe({
+      next: (newPost) => {
+        this.postCreated.emit(newPost);
+        this.newPostTitle = '';
+        this.newPostImage = '';
+      },
+      error: (error) => {
+        console.error('Post creation failed:', error);
+      },
     });
   }
 }

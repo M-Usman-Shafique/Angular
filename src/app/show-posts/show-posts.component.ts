@@ -34,9 +34,15 @@ export class ShowPostsComponent implements OnInit {
   }
   loadPosts() {
     this.isLoading = true;
-    this.postService.getAllPosts().subscribe((data) => {
-      this.posts = data.reverse();
-      this.isLoading = false;
+    this.postService.getAllPosts().subscribe({
+      next: (data) => {
+        this.posts = data.reverse();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Failed to load posts:', error);
+        this.isLoading = false;
+      },
     });
   }
 
