@@ -22,26 +22,25 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
-    // if (this.user) {
-    //   this.loadPosts();
-    // }
+    if (this.user) {
+      this.loadPosts();
+    }
   }
 
-  // loadPosts() {
-  //   if (!this.user?.id) return;
+  loadPosts() {
+    this.isLoading = true;
 
-  //   this.isLoading = true;
-  //   this.postService.getUserPosts(this.user.id).subscribe({
-  //     next: (data) => {
-  //       this.posts = data.reverse();
-  //       this.isLoading = false;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching posts:', error);
-  //       this.isLoading = false;
-  //     },
-  //   });
-  // }
+    this.postService.getMyPosts(0, 10).subscribe({
+      next: (data) => {
+        this.posts = data.reverse();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching posts:', error);
+        this.isLoading = false;
+      },
+    });
+  }
 
   logout() {
     this.userService.logout().subscribe({

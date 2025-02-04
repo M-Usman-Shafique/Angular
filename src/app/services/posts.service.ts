@@ -20,9 +20,18 @@ export class PostsService {
     );
   }
 
-  // getUserPosts(userId: string): Observable<any[]> {
-  //   return this.http.get<any[]>(`${this.apiUrl}?userId=${userId}`);
-  // }
+  getMyPosts(skip: number = 0, limit: number = 10) {
+    return this.http
+      .get<any>(`${this.apiUrl}/my-posts?skip=${skip}&limit=${limit}`, {
+        withCredentials: true,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching posts:', error);
+          return throwError(() => new Error('Failed to load posts.'));
+        })
+      );
+  }  
 
   createPost(postData: { title: string; image: string }): Observable<any> {
     return this.http
@@ -50,11 +59,13 @@ export class PostsService {
   }
 
   deletePost(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${+id}`, { withCredentials: true }).pipe(
-      catchError((error) => {
-        console.error('Error deleting post:', error);
-        return throwError(() => new Error('Failed to delete post'));
-      })
-    );
+    return this.http
+      .delete<void>(`${this.apiUrl}/${+id}`, { withCredentials: true })
+      .pipe(
+        catchError((error) => {
+          console.error('Error deleting post:', error);
+          return throwError(() => new Error('Failed to delete post'));
+        })
+      );
   }
 }
